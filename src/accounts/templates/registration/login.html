@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block body %}
+
+    <main class="mt-3">
+    <div class="container" style="margin-top: 5rem;">
+
+        {% if form.errors %}
+            <p> Your username and password didn't match. Please try again. </p>
+        {% endif %}
+
+        {% if next %}
+
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</p>
+
+            {% endif %}
+
+        {% endif %}
+
+        <form method="POST" action="{% url 'login' %}" class="col-sm-4" style="margin:auto; margin-bottom:54px; margin-top: 100px;">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" style="width:100%;"  value="login">
+            <input type="hidden" name="next" value="{{next}}">
+            
+            {# Assumes you setup the password_reset view in URLconf #}<br><br>
+            <a href="{% url 'password_reset'  %}" style="font-weight: bold;"> Forget Password ? </a>
+
+            <div class="social">
+                <ul style="margin-top: 10px; margin-left: -50px;">
+                    <li class="btn btn-primary facebook" style="border-radius: 10px;">
+                        <a style="color: white;" href='{% url "social:begin" "facebook" %}'>Sign in with Facebook</a>
+                    </li>
+                </ul>
+           </div>
+
+        </form>
+            
+    </div>
+</main>
+{% endblock body %}

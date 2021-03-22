@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+  <!--Main layout-->
+  
+      <main class="mt-5 pt-4">
+        <h4 style="margin-left: 600px; font-weight: bold; margin-top: 24px; " class="text-primary" >  My Profile </h4>
+
+        <div class="container dark-grey-text mt-5">
+          
+          <!--Grid row-->
+          <div class="row wow fadeIn">
+            
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+              {% if profile.image %}
+                <img src="{{profile.image.url}}" class="img-fluid rounded-circle" style="width: 250px; height:250px; margin-top: -20px; margin-left: 100px;">
+              {% else %}
+                <img src="{% static 'site_static/img/default_user.png' %}" class="img-fluid rounded-circle" style="width: 300px; height:300px;  margin-left: 100px;margin-top: -20px;" alt="">
+              {% endif %}
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+
+              <!--Content-->
+              <div class="p-4">
+                
+                <p class="lead font-weight-bold">{{profile}}</p>
+
+                <p class="lead">
+                      <p class="text-primary" style="font-weight: bold;">{{profile.user.email}}</p>
+                      <p class="text-primary" style="font-weight: bold;">{{profile.country.name}} - {{profile.address}}</p>
+                </p>
+                {% if profile.user == request.user %}
+                <a class="btn btn-success btn-md"  href = "{% url 'accounts:edit_profile' profile.slug %}" style="margin-left: -4px; border-radius: 6px;" type="submit">Edit My Profile
+                  <i class="fas fa-user-edit"></i>
+                </a>
+                {% endif %}
+
+            
+
+              </div>
+              <!--Content-->
+
+            </div>
+            <!--Grid column-->
+
+          </div>
+          <!--Grid row-->
+
+          <hr>
+           
+          
+          <!--Grid row-->
+          <div class="row d-flex justify-content-center wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-md-6 text-center">
+
+              <h4 class="my-4 h4 text-success"> My Orders </h4>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+            <!--Grid column-->
+
+          </div>
+          <!--Grid row-->  
+        </div>
+      </main>
+  <!--Main layout-->
+
+  
+{% endblock body %}

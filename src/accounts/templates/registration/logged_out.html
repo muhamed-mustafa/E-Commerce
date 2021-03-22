@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <main class="mt-3">
+    <div class="container" style="margin-top: 5rem;">
+
+    <div style="margin-bottom: 200px;">
+        <p style="margin-left:464px;; margin-top:140px; font-weight: bold;"> You Logged out! </p>
+
+        <a href="{% url 'login' %}" style="margin-left:440px;; margin-top:0px;color:red; font-weight: bold;"> Click here to login again.. </a>
+    </div>
+    
+    </div>
+    </main>
+{% endblock body %}

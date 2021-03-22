@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+  <!--Main layout-->
+    <main class="mt-3">
+      <div class="container" style="margin-top: 5rem;">
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mt-5 mb-5">
+
+          <!-- Navbar brand -->
+          <span class="navbar-brand">Categories :</span>
+
+          <!-- Collapse button -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Collapsible content -->
+          <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'product:product_list' %}">All
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+
+              {% for category in category_list %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'product:category_list' category.CATSlug %}">{{category}}</a>
+                </li>
+              {% endfor %}
+
+            </ul>
+            <!-- Links -->
+            
+            <form class="form-inline" method="GET" action="{% url 'product:product_list' %}">
+              <div class="md-form my-0">
+                <input class="form-control mr-sm-2" name='q' type="text" placeholder="Search" aria-label="Search">
+              </div>
+            </form>
+            
+       
+              
+          </div>
+          <!-- Collapsible content -->
+
+        </nav>
+        <!--/.Navbar-->
+
+        <!--Section: Products v.3-->
+        <section class="text-center mb-4">
+
+          <!--Grid row-->
+          <div class="row wow fadeIn">
+            {% for product  in product_list  %}
+                  <!--Grid column-->
+              <div class="col-lg-3 col-md-6 mb-4">
+
+                <!--Card-->
+                <div class="card">
+
+                  <!--Card image-->
+                  <div class="view overlay">
+                    {% if product.PRDImage %}
+                       <img src="{{product.PRDImage.url}}"  style="height: 220px;" class="card-img-top" alt="">  
+                    {% else %} 
+                       <img src="{% static 'site_static/img/default.png'%}" style="height: 220px;" class="card-img-top" alt="">   
+                    {% endif %}
+                      
+                     
+                    <a>
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+                  <!--Card image-->
+
+                  <!--Card content-->
+                  <div class="card-body text-center">
+                    <!--Category & Title-->
+                    <p class="grey-text">
+                      <h5 class="text-danger">{{product.PRDCategory}}</h5>
+                    </p>
+                    
+                    <h6>
+                      <strong>
+                        <a href="{{product.get_absolute_url}}" class="dark-grey-text"> {{product.PRDName}}<br>
+                        </a>
+                        
+                        <p style="margin-top: 6px;">
+                          {% if product.PRDISNew %}
+                              <span class="badge badge-pill primary-color">NEW</span>
+                          {% endif %}
+
+                          {% if product.PRDDiscountPrice %}
+                            <span class="badge badge-pill success-color">SALE</span>
+                          {% endif %}
+
+                          {% if product.PRDISBestSeller %}
+                          <span class="badge badge-pill danger-color">Best Seller</span>
+                          {% endif %}
+
+                        </p>
+                      </strong>
+                    </h6>
+
+                    <h4 class="font-weight-bold blue-text">
+                      <strong>{{product.PRDPrice}}$</strong>
+                    </h4>
+
+                  </div>
+                  <!--Card content-->
+
+                </div>
+                <!--Card-->
+
+              </div>
+              <!--Grid column-->
+            {% endfor %}
+        
+          </div>
+          <!--Grid row-->
+
+        </section>
+        <!--Section: Products v.3-->
+        {% if product_list.has_other_pages %}
+        <!--Pagination-->
+        <nav class="d-flex justify-content-center wow fadeIn">
+          <ul class="pagination pg-blue">
+
+            <!--Arrow left-->
+            
+            {% if product_list.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{product_list.previous_page_number}}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+             </li>
+            {% else %}
+             <li class="page-item disabled"></li>
+            {% endif %}
+            
+            
+            {% for pages in product_list.paginator.page_range  %}
+
+            {% if product_list.number == pages %}  
+                <li class="page-item active">
+                  <a class="page-link" href=""> {{pages}} </a>
+                </li>
+
+            {% else %}      
+
+              <li class="page-item">
+                <a class="page-link current" href="?page={{pages}}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}">{{pages}}</a>
+              </li>   
+
+            {% endif %}
+
+            {% endfor %}
+            
+    
+            {% if product_list.has_next %}              
+              <li class="page-item">
+                <a class="page-link" href="?page={{product_list.next_page_number}}{% if request.GET.q %}&q={{request.GET.q}}{% endif %}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            {% else %} 
+               <li class="page-item disabled"></li>  
+            {% endif %}
+          </ul>
+        </nav>
+        <!--Pagination-->
+      {% endif %}
+      </div>
+    </main>
+  <!--Main layout-->  
+
+{% endblock body %}
