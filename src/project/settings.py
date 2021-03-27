@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     
     'product',
     'settings',
+    'cart',
+
     'bootstrap4',
     'django_countries',
 
@@ -152,5 +154,8 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '1739c9c51b7a6d625c2b61db990b5fca' # Facebook App 
 
 
 #GOOGLE
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '472674524024-b4ohqohta10nh21pkca9as9hb8gbfg6o.apps.googleusercontent.com' # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = '472674524024-b4ohqohta10nh21pkca9as9hb8gbfg6o.apps.googleusercontent.com' # Google Consumer Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'oqzt25bWVeP4bUkm2wruJhIV' # Google Consumer Secret
+
+
+CART_SESSION_ID = 'cart' # to store the cart in the user session.

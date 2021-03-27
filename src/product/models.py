@@ -13,16 +13,16 @@ class Product(models.Model):
     PRDDiscountPrice = models.DecimalField(max_digits=5,decimal_places=2,verbose_name=_("Discount Price"),null=True,blank=True)
     PRDCost          = models.DecimalField(max_digits=5,decimal_places=2,verbose_name=_("Cost"))
     PRDCreated       = models.DateTimeField(auto_now_add=True,verbose_name=_("Created At"))
+    PRDUpdated       = models.DateTimeField(auto_now=True,verbose_name=_('Updated At'))
     PRDSlug          = models.SlugField(blank=True,null=True,verbose_name=_("Product Slug"))
     PRDISNew         = models.BooleanField(default=True,verbose_name=_("New Product"))
     PRDISBestSeller  = models.BooleanField(default=False,verbose_name=_("Best Seller"))
-
+    PRDAvaliable     = models.BooleanField(default=True,verbose_name=_('Avaliable'))
 
     def save(self,*args,**kwargs):
         if not self.PRDSlug :
             self.PRDSlug = slugify(self.PRDName)
-        super(Product,self).save(*args,**kwargs)
-        
+        super(Product,self).save(*args,**kwargs)        
 
     class Meta:
         verbose_name = _("Product")
@@ -35,7 +35,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.PRDName
-
 
 
 class ProductImage(models.Model):
@@ -60,11 +59,14 @@ class Category(models.Model):
     CATSlug   = models.SlugField(blank=True,null=True,verbose_name=_("Category Slug"))  
 
 
-    
     def save(self,*args,**kwargs):
         if not self.CATSlug :
             self. CATSlug = slugify(self.CATName)
         super(Category,self).save(*args,**kwargs) 
+
+
+    def get_absolute_url(self):
+        return reverse('products:category_list',args=[self.CATSlug])
 
 
     class Meta:

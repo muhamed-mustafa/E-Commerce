@@ -32,7 +32,7 @@
 
               {% for category in category_list %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'product:category_list' category.CATSlug %}">{{category}}</a>
+                  <a class="nav-link" href="{{category.get_absolute_url}}">{{category}}</a>
                 </li>
               {% endfor %}
 
@@ -67,12 +67,12 @@
 
                   <!--Card image-->
                   <div class="view overlay">
-                    {% if product.PRDImage %}
+                    {% if product.PRDImage %}    
                        <img src="{{product.PRDImage.url}}"  style="height: 220px;" class="card-img-top" alt="">  
                     {% else %} 
                        <img src="{% static 'site_static/img/default.png'%}" style="height: 220px;" class="card-img-top" alt="">   
                     {% endif %}
-                      
+                 
                      
                     <a>
                       <div class="mask rgba-white-slight"></div>

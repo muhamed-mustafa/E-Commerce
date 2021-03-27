@@ -7,7 +7,7 @@ from django.db.models import Q , Count
 def product_list(request,category_slug=None):
     category = None
     
-    product_list = Product.objects.all()
+    product_list = Product.objects.filter(PRDAvaliable=True)
     category_list = Category.objects.annotate(total_products=Count('product')).exclude(CATParent__isnull=True)
 
     if category_slug :
@@ -37,7 +37,7 @@ def product_list(request,category_slug=None):
 
 # This is Function about One or single Product
 def product_detail(request,slug):
-    product_detail = get_object_or_404(Product,PRDSlug=slug)
+    product_detail = get_object_or_404(Product,PRDSlug=slug,PRDAvaliable=True)
     context = {'product_detail':product_detail}
     return render(request,'product/product_detail.html',context)
 

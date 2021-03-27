@@ -8,10 +8,12 @@ Product :
     - Price 
     - Cost 
     - Created
+    - Updated
     - New Product
     - Best Seller
     - Discount Price 
     - Slug 
+    - Avaliable
 
 ProductImage :
     - Product --> relation
