@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load bootstrap4 %}
+
 {% load static %}
 
 {% block body %}
@@ -68,10 +70,12 @@
 
                 <form class="d-flex justify-content-left">
                   <!-- Default input -->
-                  <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-                  <button class="btn btn-primary btn-md my-0 p" type="submit">Add to cart
-                    <i class="fas fa-shopping-cart ml-1"></i>
-                  </button>
+
+                  <form  method='post' action="{% url 'cart:cart_add' product_detail.id %}">
+                    {% bootstrap_form form %}
+                    {% csrf_token %}
+                    <input class="btn btn-primary" type="submit" value="Add To Cart" style="margin-top:26px;">
+                  </form>
 
                 </form>
 

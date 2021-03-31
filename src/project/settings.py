@@ -158,4 +158,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = '472674524024-b4ohqohta10nh21pkca9as9hb8gbfg6
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'oqzt25bWVeP4bUkm2wruJhIV' # Google Consumer Secret
 
 
-CART_SESSION_ID = 'cart' # to store the cart in the user session.
+CART_SESSION_ID = 'cart' # This is the key to store the cart in user session 

@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from .models import Product , Category
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.db.models import Q , Count
+from cart.forms import CartAddProductForm
 
 # This is Function about All Products 
 def product_list(request,category_slug=None):
@@ -37,7 +38,8 @@ def product_list(request,category_slug=None):
 
 # This is Function about One or single Product
 def product_detail(request,slug):
-    product_detail = get_object_or_404(Product,PRDSlug=slug,PRDAvaliable=True)
-    context = {'product_detail':product_detail}
+    product_detail    = get_object_or_404(Product,PRDSlug=slug,PRDAvaliable=True)
+    form              =  CartAddProductForm()
+    context = {'product_detail':product_detail,'form':form}
     return render(request,'product/product_detail.html',context)
 

@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('product/',include('product.urls',namespace='products')),
     path('social-auth/',include('social_django.urls', namespace='social')),
+    path('cart/',include('cart.urls',namespace='cart')),
 ]
 
 if settings.DEBUG is True:
