@@ -71,12 +71,13 @@
                 <form class="d-flex justify-content-left">
                   <!-- Default input -->
 
-                  <form  method='post' action="{% url 'cart:cart_add' product_detail.id %}">
-                    {% bootstrap_form form %}
-                    {% csrf_token %}
-                    <input class="btn btn-primary" type="submit" value="Add To Cart" style="margin-top:26px;">
-                  </form>
+                </form>
 
+                
+                <form  method='post' action="{% url 'cart:cart_add' product_detail.id %}">
+                  {% bootstrap_form form %}
+                  {% csrf_token %}
+                  <input class="btn btn-primary" type="submit" value="Add To Cart" style="margin-left:0px;">
                 </form>
 
               </div>
