@@ -4,16 +4,16 @@
 
 {% block body %}
         
-    <h1 style="margin-top: 80px;">Your shopping cart</h1>
-    <table class="cart">
-        <thead>
+    <h1 style="margin-top: 80px; margin-left: 500px; color:sienna;">Your shopping cart</h1>
+    <table style="margin: auto; margin-top: 30px;">
+        <thead style="background-color: cornflowerblue; color: bisque;">
             <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Remove</th>
-                <th>Unit price</th>
-                <th>Price</th>
+                <th style="padding: 10px;">Image</th>
+                <th style="padding: 10px;">Product</th>
+                <th style="padding: 10px;">Quantity</th>
+                <th style="padding: 10px;">Remove</th>
+                <th style="padding: 10px;">Unit price</th>
+                <th style="padding: 10px;">Price</th>
             </tr>
         </thead>
         <tbody>
@@ -22,33 +22,42 @@
                     <tr>
                         <td>   
                             <a href="{{product.get_absolute_url}}">
-                                <img style="height: 100px;" src="{% if product.PRDImage %} {{product.PRDImage.url}}
+                                <img style="height: 100px; width: 200px;" src="{% if product.PRDImage %} {{product.PRDImage.url}}
                                 {% else %}
                                     {% static 'site_static/img/no_image.jpg' %}
                                 {% endif%}">
                             </a> 
                         </td>
-                        <td>{{ product.PRDName }}</td>
-                        <td>{{ item.quantity }}</td>
+                        <td style="padding: 10px;">{{ product.PRDName }}</td>
+                        <td style="padding: 25px;">{{ item.quantity }}
+
+                            <form method="POST" style="margin-top: -25px; margin-left: 14px;" action="{% url 'cart:cart_add' product.id %}">
+                                {% csrf_token %}
+                                {{item.update_quantity_form.quantity}}
+                                {{item.update_quantity_form.override}}
+                                <input type="submit" value="Update" class="btn btn-success" style="padding: 3%; margin-top: 3px;">
+                            </form>
+                        </td>
+
+
                         
                         <td>
                             <form method="POST" action="{% url 'cart:cart_remove' product.id %}">
                                 {% csrf_token %}
-                                <button class="btn btn-danger"> remove </button>
+                                <button class="btn btn-danger" style="padding: 3%;"> remove </button>
                             </form>
                         </td>
-
-                        <td class="num">${{ item.price }}</td>
-                        <td class="num">${{ item.total_price }}</td>
-                        
+                        <td style="padding: 10px;" class="num">${{ item.price }}</td>
+                        <td style="padding: 10px;" class="num">${{ item.total_price }}</td>
                     </tr>
                 {% endwith %}
             {% endfor %}
-
-                <tr class="total">
-                    <td>Total</td>
+                
+                
+                <tr style="background-color: cornflowerblue; " class="total">
+                    <td style="padding: 10px; color: bisque;">Total</td>
                     <td colspan="4"></td>
-                    <td class="num">${{cart.get_total_price}}</td>
+                    <td class="num" style="padding: 10px;color: bisque;">${{cart.get_total_price}}</td>
                 </tr>
 
         </tbody>

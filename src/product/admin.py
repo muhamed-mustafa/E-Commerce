@@ -5,9 +5,9 @@ from .models import Product,ProductImage,Category,Product_Accessories,Product_Al
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display        = ['PRDName','PRDSlug','PRDPrice','PRDAvaliable','PRDCreated','PRDUpdated']
+    list_display        = ['PRDName','PRDSlug','PRDPrice','PRDDiscountPrice','PRDAvaliable','PRDCreated','PRDUpdated']
     list_filter         = ['PRDPrice','PRDAvaliable','PRDCreated','PRDUpdated']
-    list_editable       = ['PRDPrice','PRDAvaliable']
+    list_editable       = ['PRDPrice','PRDAvaliable','PRDDiscountPrice']
     prepopulated_fields = {'PRDSlug':('PRDName',)}
 
 @admin.register(Category)

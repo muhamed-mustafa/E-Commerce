@@ -84,8 +84,14 @@
         <!-- Right -->
         <ul class="navbar-nav nav-flex-icons">
           <li class="nav-item">
-            <a class="nav-link waves-effect">
-              <span class="badge red z-depth-1 mr-1"> 1 </span>
+            <a class="nav-link waves-effect" href="{% url 'cart:cart_detail' %}">
+              {% with total_items=cart|length %}
+                {% if total_items > 0 %}
+                  <span class="badge red z-depth-1 mr-1"> {{total_items}} </span>
+                {% else %}
+                  <span class="badge red z-depth-1 mr-1"> 0 </span>
+                {% endif %}
+                {% endwith %}
               <i class="fas fa-shopping-cart"></i>
               <span class="clearfix d-none d-sm-inline-block"> Cart </span>
             </a>

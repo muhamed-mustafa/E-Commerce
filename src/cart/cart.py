@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.conf import settings
 from product.models import Product
+from django.db.models import Sum
 
 class Cart(object):
     
@@ -29,7 +30,7 @@ class Cart(object):
         product_id = str(product.id) # because Django use JSON to seralize session data and JSON allow only string key name
         
         if product_id not in self.cart :
-            self.cart[product_id] = {'quantity':0,'price':str(product.PRDPrice)}
+            self.cart[product_id] = {'quantity':0,'price':str(product.PRDPrice),'discount':str(product.PRDDiscountPrice)}
 
         
         if override_quantity :
@@ -74,8 +75,9 @@ class Cart(object):
 
         
         for item in cart.values():
+            
             item['price']    = Decimal(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
+            item['total_price'] = item['price'] * item['quantity']        
             yield item
 
 
@@ -86,13 +88,11 @@ class Cart(object):
         """
 
         return sum(item['quantity'] for item in self.cart.values())
-
-
+        
 
     def get_total_price(self):
-        
+    
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
-
 
 
     def clear(self):
