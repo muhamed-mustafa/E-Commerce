@@ -63,9 +63,9 @@
         </tbody>
         </table>
 
-            <p class="text-right">
+            <p class="text-right mt-4">
                 <a href="{% url 'products:product_list' %}"  style="border-radius: 10px;" class="btn btn-primary">Continue shopping</a>
-                <a href="#"  style="border-radius: 10px;" class="btn btn-success">Checkout</a>
+                <a href="{% url 'orders:order_create' %}"  style="border-radius: 10px;" class="btn btn-success">Checkout</a>
             </p>
        
 {% endblock body %} 

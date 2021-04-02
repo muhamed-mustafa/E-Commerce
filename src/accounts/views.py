@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate , login as auth_login
 from .models import Profile
 from .forms import UserForm , ProfileForm
 from django.contrib.auth.decorators import login_required
+from orders.models import OrderItem
 
 # Create your views here.
 
@@ -33,7 +34,8 @@ def signup(request):
 @login_required(login_url='login')
 def profile(request,slug):
     profile = get_object_or_404(Profile,slug=slug)
-    context = {'profile':profile}
+    orders   = OrderItem.objects.all()
+    context = {'profile':profile,'orders':orders}
     return render(request,'accounts/profile.html',context)
 
 

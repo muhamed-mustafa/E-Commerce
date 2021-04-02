@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load bootstrap4 %}
+
+{% block body %}
+    
+    <h1 style="margin-top: 100px; margin-left: 240px;"> CheckOut </h1>
+
+    <div style="margin-top: 20px; margin-left:960px; width: 330px; padding: 4px; color: wheat; background-color:lightslategray">
+        <h3 style="padding: 8px;">Your order</h3>
+        <ul>
+        
+         {% for item in cart %}   
+            <li>
+                {{item.quantity}} x {{item.product.PRDName}}
+               <span><p style="margin-top: -24px; margin-left: 200px;">${{ item.total_price }}</p></span>
+            </li>
+         {% endfor %}
+
+        </ul>
+
+        <p style="margin-left: 190px;"> Total : ${{ cart.get_total_price }}</p>
+    </div>
+
+    <form method="POST" style="width: 40%; margin-left: 80px; margin-top: -100px;">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button  class="btn btn-success" type="submit" style="width:100%; margin-left: -1px;"> Place Order </button>
+    </form>
+{% endblock body %}
